@@ -1,32 +1,26 @@
 # Crime Analytics Notebook Pipeline
 
-Generic notebook-first analytics pipeline for scraping, cleaning, and visualizing structured incident data.
+Enterprise-style notebook-centric analytics pipeline for ingestion, cleaning, and visualization.
 
-## Pipeline Stages
+## Structure
+- `src/`: notebooks and transformation scripts.
+- `data/`: raw/cleaned example datasets.
+- `visualisation/`: generated chart outputs.
+- `configs/`, `scripts/`, `docs/`: operational layers.
 
-1. Ingest: collect raw records (web scraping + CSV ingest).
-2. Clean: normalize fields and produce analysis-ready tabular output.
-3. Analyze: run exploratory analysis notebooks.
-4. Visualize: generate charts and summary images.
-5. Report: export notebook outputs for presentation.
+## Quickstart
+```bash
+./scripts/bootstrap.sh
+./scripts/run_pipeline.sh script
+```
 
-## Repository Layout
+## Run Modes
+- `./scripts/run_pipeline.sh script`
+- `./scripts/run_pipeline.sh notebook`
 
-- `data/`: raw and cleaned datasets.
-- `src/`: notebooks and helper scripts.
-- `visualisation/`: generated and curated chart images.
-
-## Example Datasets (Current)
-
+## Example Datasets and Notebooks
 - `data/raw.csv`
 - `data/Cleaned.csv`
-
-## Notebook Examples (Current)
-
 - `src/WebScraping-Demo.ipynb`
 - `src/Demo-Visualization-Cleaning.ipynb`
 - `src/main.py.ipynb`
-
-## Script Example
-
-- `src/Demo-Visualization-Cleaning.py`
