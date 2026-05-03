@@ -8,9 +8,27 @@ MODE="${1:-script}"
 
 case "$MODE" in
   script)
-    python3 src/Demo-Visualization-Cleaning.py
+    if ! python3 - <<'PY'
+import importlib.util
+import sys
+required = ["pandas", "numpy"]
+missing = [pkg for pkg in required if importlib.util.find_spec(pkg) is None]
+if missing:
+    print("Missing Python package(s): " + ", ".join(missing))
+    print("Install with: python3 -m pip install -r requirements.txt")
+    sys.exit(1)
+PY
+    then
+      exit 1
+    fi
+    shift || true
+    python3 src/pipeline_clean.py "$@"
     ;;
   notebook)
+    if ! command -v jupyter >/dev/null 2>&1; then
+      echo "jupyter not found. Install with: python3 -m pip install -r requirements.txt"
+      exit 1
+    fi
     jupyter nbconvert --to notebook --execute src/Demo-Visualization-Cleaning.ipynb --output executed-Demo-Visualization-Cleaning.ipynb
     ;;
   *)
